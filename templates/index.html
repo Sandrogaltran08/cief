@@ -1,0 +1,37 @@
+<!-- templates/index.html -->
+{% extends 'layout.html' %}
+{% block content %}
+<div class="row">
+<div class="col-md-8">
+<h3>Dashboard</h3>
+<p>Total itens: <strong>{{ total_items }}</strong> — Total locações: <strong>{{ total_rentals }}</strong></p>
+
+
+{% if search_query %}
+<h5>Resultados para "{{ search_query }}"</h5>
+<h6>Locações</h6>
+{% include 'rentals.html' %}
+{% endif %}
+
+
+<h5>Próximas locações</h5>
+<ul class="list-group">
+{% for r in next_rentals %}
+<li class="list-group-item">
+<strong>{{ r['professor'] }}</strong> — {{ r['subject'] }} ({{ r['date'] }} {{ r['time'] }})
+</li>
+{% else %}
+<li class="list-group-item">Nenhuma locação agendada.</li>
+{% endfor %}
+</ul>
+</div>
+<div class="col-md-4">
+<h5>Ações rápidas</h5>
+<a class="btn btn-primary mb-2 w-100" href="{{ url_for('rentals') }}">Nova locação</a>
+<a class="btn btn-secondary mb-2 w-100" href="{{ url_for('inventory') }}">Adicionar item ao inventário</a>
+
+<hr>
+<h6>Busca rápida por itens</h6>
+</div>
+</div>
+{% endblock %}

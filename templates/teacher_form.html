@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Novo Professor</h2>
+    <form method="post">
+        <div class="mb-3">
+            <label for="first_name" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Sobrenome</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="subject" class="form-label">Matéria</label>
+            <input type="text" class="form-control" id="subject" name="subject" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="experience_years" class="form-label">Anos de Atuação</label>
+            <input type="number" class="form-control" id="experience_years" name="experience_years" min="0" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="schedule" class="form-label">Horários</label>
+            <textarea class="form-control" id="schedule" name="schedule" rows="3" placeholder="Ex: Seg e Qua - 8h às 10h, Sex - 14h às 16h"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a href="{{ url_for('teachers') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

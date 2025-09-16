@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Nova Locação</h2>
+    <form method="post">
+        <div class="mb-3">
+            <label for="professor" class="form-label">Professor</label>
+            <input type="text" class="form-control" id="professor" name="professor" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="materia" class="form-label">Matéria</label>
+            <input type="text" class="form-control" id="materia" name="materia" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="sala" class="form-label">Sala</label>
+            <input type="text" class="form-control" id="sala" name="sala" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="turma" class="form-label">Turma</label>
+            <input type="text" class="form-control" id="turma" name="turma" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="data_hora" class="form-label">Data e Hora</label>
+            <input type="datetime-local" class="form-control" id="data_hora" name="data_hora" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="tempo_uso" class="form-label">Tempo de Uso (horas)</label>
+            <input type="number" class="form-control" id="tempo_uso" name="tempo_uso" min="1" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="equipamento" class="form-label">Equipamento</label>
+            <input type="text" class="form-control" id="equipamento" name="equipamento" placeholder="Ex: Projetor, Notebook, Caixa de som" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a href="{{ url_for('rentals') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
