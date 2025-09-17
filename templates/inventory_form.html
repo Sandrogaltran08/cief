@@ -4,6 +4,7 @@
 <div class="container mt-4">
     <h2>{{ 'Editar Equipamento' if edit else 'Novo Equipamento' }}</h2>
 
+
     <form method="post">
         <div class="mb-3">
             <label for="nome" class="form-label">Nome do Equipamento</label>
@@ -25,7 +26,8 @@
 
         <div class="mb-3">
             <label for="descricao" class="form-label">Descrição</label>
-            <textarea class="form-control" id="descricao" name="descricao" rows="3">{{ item.descricao if item else '' }}</textarea>
+            <textarea class="form-control" id="descricao" name="descricao"
+                      rows="3">{{ item.descricao if item else '' }}</textarea>
         </div>
 
         <button type="submit" class="btn btn-success">{{ 'Salvar Alterações' if edit else 'Salvar' }}</button>

@@ -2,8 +2,13 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h2>Locações</h2>
-    <a href="{{ url_for('rental_form') }}" class="btn btn-primary mb-3">Nova Locação</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Locações</h2>
+        <a href="{{ url_for('rental_form') }}" class="btn btn-primary mb-3">Nova Locação</a>
+            <a href="{{ url_for('export_rentals_pdf') }}" class="btn btn-danger">Exportar PDF</a>
+    </div>
+
+
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
