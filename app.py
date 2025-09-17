@@ -244,6 +244,15 @@ def datetime_br(value):
     except Exception:
         return value  # se der erro, retorna o valor original
 
+@app.route("/rentals/delete/<int:rental_id>", methods=["POST"])
+def delete_rental(rental_id):
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM rentals WHERE id = ?", (rental_id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for("rentals"))
+
 if __name__ == "__main__":
     init_db()
     app.run(debug=True)

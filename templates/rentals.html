@@ -7,57 +7,68 @@
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Professor</th>
-                <th>Matéria</th>
-                <th>Sala</th>
-                <th>Turma</th>
-                <th>Data e Hora</th>
-                <th>Tempo de Uso</th>
-                <th>Equipamento</th>
-                <th>Status</th>
-                <th>Ação</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Professor</th>
+            <th>Matéria</th>
+            <th>Sala</th>
+            <th>Turma</th>
+            <th>Data e Hora</th>
+            <th>Tempo de Uso</th>
+            <th>Equipamento</th>
+            <th>Status</th>
+            <th>Ação</th>
+            <th>Opção</th>
+        </tr>
         </thead>
         <tbody>
-            {% for rental in rentals %}
-            <tr>
-                <td>{{ rental["id"] }}</td>
-                <td>{{ rental["professor"] }}</td>
-                <td>{{ rental["materia"] }}</td>
-                <td>{{ rental["sala"] }}</td>
-                <td>{{ rental["turma"] }}</td>
-                <td>{{ rental["data_hora"] | datetime_br }}</td>
-                <td>{{ rental["tempo_uso"] }}</td>
-                <td>{{ rental["equipamento"] }}</td>
-                <td>
-                    {% if rental["status"] == "Em Uso" %}
-                        <span class="badge bg-danger">
+        {% for rental in rentals %}
+        <tr>
+            <td>{{ rental["id"] }}</td>
+            <td>{{ rental["professor"] }}</td>
+            <td>{{ rental["materia"] }}</td>
+            <td>{{ rental["sala"] }}</td>
+            <td>{{ rental["turma"] }}</td>
+            <td>{{ rental["data_hora"] | datetime_br }}</td>
+            <td>{{ rental["tempo_uso"] }}</td>
+            <td>{{ rental["equipamento"] }}</td>
+            <td>
+                {% if rental["status"] == "Em Uso" %}
+                <span class="badge bg-danger">
                             <i class="bi bi-circle-fill"></i> Em Uso
                         </span>
-                    {% else %}
-                        <span class="badge bg-success">
+                {% else %}
+                <span class="badge bg-success">
                             <i class="bi bi-circle-fill"></i> Devolvido
                         </span>
-                    {% endif %}
-                </td>
-                <td>
-                    {% if rental["status"] == "Em Uso" %}
-                        <a href="{{ url_for('return_rental', rental_id=rental['id']) }}"
-                           class="btn btn-sm btn-outline-success">
-                           Marcar como Devolvido
-                        </a>
-                    {% else %}
-                        <span class="text-success">✔ Devolvido</span>
-                    {% endif %}
-                </td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="9" class="text-center">Nenhuma locação cadastrada.</td>
-            </tr>
-            {% endfor %}
+                {% endif %}
+            </td>
+            <td>
+                {% if rental["status"] == "Em Uso" %}
+                <a href="{{ url_for('return_rental', rental_id=rental['id']) }}"
+                   class="btn btn-sm btn-outline-success">
+                    Marcar como Devolvido
+                </a>
+                {% else %}
+                <span class="text-success">✔ Devolvido</span>
+                {% endif %}
+            </td>
+            <td>
+                <!-- Botão de remover -->
+                <form action="{{ url_for('delete_rental', rental_id=rental.id) }}" method="POST"
+                      style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Tem certeza que deseja remover esta locação?');">
+                        Remover
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="9" class="text-center">Nenhuma locação cadastrada.</td>
+        </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>
