@@ -28,9 +28,7 @@
                 <td>{{ rental["materia"] }}</td>
                 <td>{{ rental["sala"] }}</td>
                 <td>{{ rental["turma"] }}</td>
-                <td>
-                    {{ rental["data_hora"] | datetimeformat }}
-                </td>
+                <td>{{ rental["data_hora"] | datetime_br }}</td>
                 <td>{{ rental["tempo_uso"] }}</td>
                 <td>{{ rental["equipamento"] }}</td>
                 <td>

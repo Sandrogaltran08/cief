@@ -59,13 +59,6 @@ def init_db():
 def index():
     return render_template("index.html")
 
-@app.template_filter("datetimeformat")
-def datetimeformat(value, format="%d/%m/%Y %H:%M"):
-    try:
-        dt = datetime.fromisoformat(value)
-        return dt.strftime(format)
-    except Exception:
-        return value  # se der erro, mostra original
 
 # Helpers
 def query_db(query, args=(), one=False, commit=False):
@@ -138,22 +131,28 @@ def rental_form():
         professor = request.form["professor"]
         materia = request.form["materia"]
         sala = request.form["sala"]
-        data_hora = request.form["data_hora"]
+        turma = request.form["turma"]
+        data = request.form["data"]      # ex: 17/09/2025
+        hora = request.form["hora"]      # ex: 14:30
         tempo_uso = request.form["tempo_uso"]
         equipamento = request.form["equipamento"]
-        turma = request.form["turma"]   # 🔑 novo campo
 
-        query_db(
-            """
+        # 🔄 Converte para formato padrão ISO antes de salvar no banco
+        data_hora = datetime.strptime(f"{data} {hora}", "%d/%m/%Y %H:%M")
+
+        conn = sqlite3.connect(DB_NAME)
+        cursor = conn.cursor()
+        cursor.execute("""
             INSERT INTO rentals (professor, materia, sala, turma, data_hora, tempo_uso, equipamento, status)
-            VALUES (?, ?, ?, ?, ?, ?, ?, 'Em Uso')
-            """,
-            (professor, materia, sala, turma, data_hora, tempo_uso, equipamento),
-            commit=True,
-        )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """, (professor, materia, sala, turma, data_hora.strftime("%Y-%m-%d %H:%M:%S"), tempo_uso, equipamento, "Em Uso"))
+        conn.commit()
+        conn.close()
+
         return redirect(url_for("rentals"))
 
     return render_template("rental_form.html")
+
 
 
 # ----------------- INVENTÁRIO ----------------- #
@@ -236,6 +235,14 @@ def search():
                          (f'%{q}%',f'%{q}%',f'%{q}%'))
     return render_template('index.html', search_query=q, search_rentals=rentals, search_items=items)
 
+@app.template_filter("datetime_br")
+def datetime_br(value):
+    """Converte datetime ISO (do input HTML) para formato brasileiro DD/MM/AAAA HH:MM"""
+    try:
+        dt = datetime.fromisoformat(value)
+        return dt.strftime("%d/%m/%Y %H:%M")
+    except Exception:
+        return value  # se der erro, retorna o valor original
 
 if __name__ == "__main__":
     init_db()

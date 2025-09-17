@@ -25,18 +25,23 @@
         </div>
 
         <div class="mb-3">
-            <label for="data_hora" class="form-label">Data e Hora</label>
-            <input type="datetime-local" class="form-control" id="data_hora" name="data_hora" required>
+            <label for="data" class="form-label">Data (DD/MM/AAAA)</label>
+            <input type="text" class="form-control" id="data" name="data" placeholder="Ex: 17/09/2025" required>
         </div>
 
         <div class="mb-3">
-            <label for="tempo_uso" class="form-label">Tempo de Uso (horas)</label>
-            <input type="number" class="form-control" id="tempo_uso" name="tempo_uso" min="1" required>
+            <label for="hora" class="form-label">Hora (HH:MM)</label>
+            <input type="text" class="form-control" id="hora" name="hora" placeholder="Ex: 14:30" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="tempo_uso" class="form-label">Tempo de Uso</label>
+            <input type="text" class="form-control" id="tempo_uso" name="tempo_uso" required>
         </div>
 
         <div class="mb-3">
             <label for="equipamento" class="form-label">Equipamento</label>
-            <input type="text" class="form-control" id="equipamento" name="equipamento" placeholder="Ex: Projetor, Notebook, Caixa de som" required>
+            <input type="text" class="form-control" id="equipamento" name="equipamento" required>
         </div>
 
         <button type="submit" class="btn btn-success">Salvar</button>
